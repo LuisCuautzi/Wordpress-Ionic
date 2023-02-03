@@ -32,6 +32,7 @@ export class PostsPage implements OnInit {
     this.wpservice.getAllPosts().subscribe((data: any) => {
       this.postCount = this.wpservice.allPosts;
       this.Posts = data;
+      console.log('Posts', data);
       loading.dismiss();
     });
   }
@@ -47,5 +48,13 @@ export class PostsPage implements OnInit {
       }
     })
   }
+
+  infiniteScrollDisabled() {
+    if (this.wpservice.hasMorePosts()) {
+        return false;
+    } else {
+        return true;
+    }
+   }
 
 }

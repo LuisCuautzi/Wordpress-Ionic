@@ -8,17 +8,17 @@
     <ion-label>
       <strong>Total Posts</strong>
     </ion-label>
-    <ion-badge color="tertiary" *ngIf="postCount">{{ postCount }}</ion-badge>
+    <ion-badge size="large" shape="round" color="tertiary" *ngIf="postCount">{{ postCount }}</ion-badge>
   </ion-item>
   <ion-card *ngFor="let post of Posts">
     <ion-img *ngIf="post._embedded['wp:featuredmedia']" 
     [src]="post._embedded['wp:featuredmedia']['0'].source_url"></ion-img>
     <ion-card-header>
       <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
-      <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle>
+      <!-- <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle> -->
     </ion-card-header>
     <ion-card-content>
-      <div [innerHTML]="post.excerpt.rendered"></div>
+      <!-- <div [innerHTML]="post.excerpt.rendered"></div> -->
       <ion-item class="ion-activated" detail lines="none" color="tertiary">
         <ion-label *ngIf="!post.modified">{{post.date | date}}</ion-label>
         <ion-label *ngIf="post.modified">{{post.modified | date}}</ion-label>
@@ -26,8 +26,24 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <ion-infinite-scroll threshold="120px" (ionInfinite)="infiniteLoad($event)">
+  <ion-infinite-scroll threshold="120px" (ionInfinite)="infiniteLoad($event)" [disabled]="infiniteScrollDisabled()">
     <ion-infinite-scroll-content loadingText="Fetching Posts">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button>
+      <ion-icon name="document-attach-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="color-palette-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="earth-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

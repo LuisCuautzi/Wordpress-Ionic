@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class WpIonicService {
-  endpoint = `http://localhost/wordpress/wp-json/wp/v2/`;
+  endpoint = `https://despertadorlavalle.com.ar/wp-json/wp/v2/`;
+  //endpoint = `http://localhost/wordpress/wp-json/wp/v2/`;
   allPosts = null;
   pages: any;
 
@@ -17,7 +18,7 @@ export class WpIonicService {
     let options = {
       observe: "response" as 'body',
       params: {
-        per_page: '6',
+        per_page: '10',
         page: ''+page
       }
     };
@@ -39,4 +40,8 @@ export class WpIonicService {
       })
     )
   }
+
+  hasMorePosts() {
+    return this.pages;
+}
 }
