@@ -33,6 +33,8 @@ export class PostsPage implements OnInit {
       this.postCount = this.wpservice.allPosts;
       this.Posts = data;
       console.log('Posts', data);
+      // console.log('Total de Publicaciones: (',this.postCount,')');
+      console.table(data, ["id","status","author"]);
       loading.dismiss();
     });
   }

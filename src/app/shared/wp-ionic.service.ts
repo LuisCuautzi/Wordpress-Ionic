@@ -7,8 +7,13 @@ import { map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class WpIonicService {
-  endpoint = `https://despertadorlavalle.com.ar/wp-json/wp/v2/`;
-  //endpoint = `http://localhost/wordpress/wp-json/wp/v2/`;
+  // endpoint1 = `https://despertadorlavalle.com.ar/wp-json/wp/v2/`;// funciona bien 
+  // endpointW = `http://localhost/wordpress/wp-json/wp/v2/`; // funciona bien es la API de WP Localhost
+  // endpoint2 = `https://blackamericaweb.com/wp-json/wp/v2/`; // funciona bien
+  // endpoint3 = `https://www.wired.com/wp-json/wp/v2/`; //posts/?_embed&_embed&_embed //funciona bien, los detalles estan bloqueados por el autor
+  // endpoint4 = `https://boingboing.net/wp-json/wp/v2/`;// no funciona tiene bloqueo de CORS 
+  // endpoint5 = `https://quo.eldiario.es/wp-json/wp/v2/`; // funciona bien 
+  endpoint6 = `https://variety.com/wp-json/wp/v2/`; // si funciona
   allPosts = null;
   pages: any;
 
@@ -22,7 +27,7 @@ export class WpIonicService {
         page: ''+page
       }
     };
-    return this.httpClient.get<any>(`${this.endpoint}posts?_embed`, options)
+    return this.httpClient.get<any>(`${this.endpoint6}posts/?_embed`, options)
     .pipe(
       map(res => {
         this.pages = res['headers'].get('x-wp-totalpages');
@@ -33,7 +38,7 @@ export class WpIonicService {
   }
 
   postDetails(id: any){
-    return this.httpClient.get(`${this.endpoint}posts/${id}?_embed`)
+    return this.httpClient.get(`${this.endpoint6}posts/${id}?_embed`)
     .pipe(
       map((post) => {
         return post;
@@ -43,5 +48,5 @@ export class WpIonicService {
 
   hasMorePosts() {
     return this.pages;
-}
+  }
 }

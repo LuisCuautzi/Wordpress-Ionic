@@ -19,6 +19,10 @@
     </ion-card-header>
     <ion-card-content>
       <!-- <div [innerHTML]="post.excerpt.rendered"></div> -->
+      <div class="item-note" slot="end">
+        <!-- {{post.id}} -->
+        <ion-label>{{ post.status}}</ion-label>
+      </div>
       <ion-item class="ion-activated" detail lines="none" color="tertiary">
         <ion-label *ngIf="!post.modified">{{post.date | date}}</ion-label>
         <ion-label *ngIf="post.modified">{{post.modified | date}}</ion-label>
