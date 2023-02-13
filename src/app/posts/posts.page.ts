@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WpIonicService } from '../shared/wp-ionic.service';
 import { LoadingController } from '@ionic/angular'
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-posts',
@@ -13,9 +14,18 @@ export class PostsPage implements OnInit {
   postCount = null;
   page = 1;
 
+  slideOptions = {
+    initialSlide: 1,
+    speed: 400,
+  };
+
+  slidesDidLoad(slides: IonSlides): void {
+    slides.startAutoplay();
+  }
+
   constructor(
     private wpservice: WpIonicService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -33,7 +43,7 @@ export class PostsPage implements OnInit {
       this.postCount = this.wpservice.allPosts;
       this.Posts = data;
       console.log('Posts', data);
-      // console.log('Total de Publicaciones: (',this.postCount,')');
+      console.log('Total de Publicaciones: (',this.postCount,')');
       console.table(data, ["id","status","author"]);
       loading.dismiss();
     });
@@ -58,5 +68,15 @@ export class PostsPage implements OnInit {
         return true;
     }
    }
+
+   cars=[
+    "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Front-view-52648.jpg?v=201711021421&q=80",
+      "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Right-Front-Three-Quarter-52645.jpg?v=201711021421&q=80",
+      "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Right-Side-52646.jpg?v=201711021421&q=80",
+      "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Left-Front-Three-Quarter-52647.jpg?v=201711021421&q=80",
+      "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Front-view-52649.jpg?v=201711021421&q=80",
+      "https://imgd.aeplcdn.com/1056x594/ec/79/85/9802/img/ol/Lamborghini-Aventador-Rear-view-52650.jpg?v=201711021421&q=80"
+    
+    ];
 
 }
