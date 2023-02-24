@@ -1,10 +1,57 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-title>Wordpress Ionic</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Wordpress
+      <ion-badge slot="end" size="large" shape="round" color="tertiary" *ngIf="postCount">{{ postCount }}</ion-badge>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-    <ion-slides [options]="{ slidesPerView:1, autoplay: {delay: 3500} }">
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>Home</ion-list-header>
+          <ion-note>lsanchezcuautzi@gmail.com</ion-note>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list id="labels-list">
+          <ion-list-header>Labels</ion-list-header>
+
+          <!-- <ion-item *ngFor="let label of labels" lines="none">
+            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+            <ion-label>{{ label }}</ion-label>
+          </ion-item> -->
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let label of labels; let i = index">
+            <ion-item routerDirection="root" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="label.icon + '-outline'" [md]="label.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ label.title}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content">
+      <ion-slides [options]="{ slidesPerView:1, autoplay: {delay: 3500} }">
+        <ion-slide *ngFor="let post of Posts">
+              <ion-img style="width: 700px; height: 550px;" *ngIf="post._embedded['wp:featuredmedia']" [src]="post._embedded['wp:featuredmedia']['0'].source_url"></ion-img>
+              <!-- <ion-img src="{{post.url}}"></ion-img>
+              <div [innerHTML]="post.excerpt.rendered"></div> -->
+        </ion-slide>
+      </ion-slides>
+      <ion-button expand="block">Club Alpha 2</ion-button>
+    </ion-router-outlet>
+  </ion-split-pane>
+    <!-- <ion-slides [options]="{ slidesPerView:1, autoplay: {delay: 3500} }">
       <ion-slide *ngFor="let post of cars">
         <ion-card>
           <ion-card-header>
@@ -12,4 +59,14 @@
           </ion-card-header>
         </ion-card>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> 
+    <ion-slides [options]="{ slidesPerView:1, autoplay: {delay: 3500} }">
+      <ion-slide *ngFor="let post of progra">
+        <ion-card>
+          <ion-card-header>
+            <ion-img src="{{post}}" width="400px" height="250px"></ion-img>
+          </ion-card-header>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>  -->
+</ion-content>
